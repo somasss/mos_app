@@ -1,0 +1,66 @@
+<%= form_with(model: house, local: true) do |form| %>
+  <% if house.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(house.errors.count, "error") %> prohibited this house from being saved:</h2>
+
+      <ul>
+      <% house.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :物件名 %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :賃料 %>
+    <%= form.text_field :price %>円
+  </div>
+
+  <div class="field">
+    <%= form.label :住所 %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :築年数 %>
+    <%= form.text_field :age %>年
+  </div>
+
+  <div class="field">
+    <%= form.label :備考 %>
+    <%= form.text_area :remarks %>
+  </div>
+
+  <%= form.fields_for :stations do |station| %>
+    <div>
+      <p class="line" style = "border:2px solid #808080;border-bottom:2px">
+    </div>
+    <% @n += 1 %>
+    <span style="font-size:20px;  font-weight: bold;"><%= "最寄り駅#{@n}" %></span>
+    <br>
+    <div class="route">
+      <%= station.label :路線名 %>
+      <%= station.text_field :route %>
+    </div>
+
+    <div class="name">
+      <%= station.label :駅名 %>
+     <%= station.text_field :name %>
+    </div>
+
+    <div class="time">
+      <%= station.label :徒歩分数 %>
+      <%= station.text_field :time %>分
+    </div>
+
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
